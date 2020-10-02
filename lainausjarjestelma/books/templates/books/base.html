@@ -24,25 +24,25 @@
                 <ul class="navbar-nav mr-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Search Engine</a>
+                        <a class="nav-link" href="#">Selaa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="#">Tietoja</a>
                     </li>
                 </ul>
                 <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="//codeply.com">Login</a>
+                            <a class="nav-link" href="#">Kirjaudu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Register</a>
+                            <a class="nav-link" href="#">Rekisteröidy</a>
                         </li>
                     </ul>
                 </div>
                 <form class="form-inline">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Etsi</button>
                 </form>
             </div>
         </nav>
@@ -51,6 +51,13 @@
     <main class="container">
     
         <!--  Site specific data comes between blocks  -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         {% block content %}{% endblock %}
     
     </main>
