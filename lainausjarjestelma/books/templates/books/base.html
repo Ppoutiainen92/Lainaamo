@@ -32,12 +32,21 @@
                 </ul>
                 <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Kirjaudu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Rekisteröidy</a>
-                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'profile' %}">{{ user.username }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Kirjaudu ulos</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Kirjaudu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Rekisteröidy</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <form class="form-inline">

@@ -1,0 +1,9 @@
+{% extends 'books/base.html' %}
+{% block content %}
+    <h2>Olet kirjautunut ulos</h2>    
+    <div class="border-top pt-3">
+        <p class="text-muted">            
+            <a href="{% url 'login' %}">Kirjaudu uudelleen</a>
+        </p>
+    </div>
+{% endblock content %}
