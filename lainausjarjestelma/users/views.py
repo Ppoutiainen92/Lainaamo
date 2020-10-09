@@ -19,7 +19,15 @@ def register(request):
 
 @login_required
 def profile(request):
-    p_form = ProfileUpdateForm(instance=request.user)
+    if request.method == "POST":
+        p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+        if p_form.is_valid():
+            p_form.save()
+            messages.success(request, "Käyttäjä tietosi on päivitetty")
+            return redirect("home")
+    else:
+        p_form = ProfileUpdateForm(instance=request.user)
+
     context = {
         "p_form": p_form
     }
