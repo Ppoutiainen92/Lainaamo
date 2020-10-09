@@ -1,3 +1,4 @@
+<!-- Base html which defines most of the layout of the website -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +33,7 @@
                 </ul>
                 <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
                     <ul class="navbar-nav ml-auto">
+                        <!-- Show dropdown menu if user is logged in otherwise it shows log in and registaration links -->
                         {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="{% url 'profile' %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</a>
@@ -64,7 +66,7 @@
 
     <main class="container">
     
-        <!--  Site specific data comes between blocks  -->
+        <!--  Show messages relevant to site interaction ex. user have logged in succesfully -->
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
