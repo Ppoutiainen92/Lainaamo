@@ -1,4 +1,14 @@
 {% extends 'books/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <h1>{{ user.username }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Profiili</legend>
+            {{ p_form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class ="btn btn-outline-secondary" type="submit">Päivitä</button>
+        </div>
+    </form>
 {% endblock content %}
