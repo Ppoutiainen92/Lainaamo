@@ -8,10 +8,11 @@ from django.utils import timezone
 
 class BookListView(generic.ListView):
     model = Book
-    context_object_name = 'book_list'
+    context_object_name = 'books'
     template_name = 'books/book_list.html'
+    paginate_by = 4
 
-    def showbooks(request):
-        allbooks = Book.object.all()
-        context = {'allbooks': allbooks}
-        return render(request, 'books/book_list.html', context)
+    # def showbooks(request):
+    #     allbooks = Book.object.all()
+    #     context = {'allbooks': allbooks}
+    #     return render(request, 'books/book_list.html', context)

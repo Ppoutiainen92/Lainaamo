@@ -13,13 +13,15 @@
 <div class="album py-5 bg-light">
   <div class="container">
     <div class="row">
-      {% for book in object_list %}
+      {% for book in books %}
       <div class="col-md-4">
         <div class="card mb-4 box-shadow">
           <img src="{{ book.thumbnail.url }}" />
           <div class="card-body">
             <h5 class="card-title">{{ book.book_title }}</h5>
-            <p class="card-text">{{ book.description }}</p>
+            <p class="card-text">
+              {{ book.description|truncatewords:20|linebreaks }}
+            </p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-secondary">
@@ -38,4 +40,5 @@
     </div>
   </div>
 </div>
-{% endblock content %}
+
+{% include 'books/pagination.html' with page=page_obj %} {% endblock content%}
