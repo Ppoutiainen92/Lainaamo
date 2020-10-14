@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Library
+from .models import Library, LibraryBook
 
 
 class LibraryAdmin(admin.ModelAdmin):
@@ -8,3 +8,4 @@ class LibraryAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Library, LibraryAdmin)
+admin.site.register(LibraryBook, LibraryAdmin)
