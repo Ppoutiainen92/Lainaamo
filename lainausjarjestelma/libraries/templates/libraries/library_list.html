@@ -1,0 +1,26 @@
+{% extends 'books/base.html' %} {% block content %} {% for library in libraries%}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ library.name }}</h5>
+                        <p class="card-text">
+                        {{ library.description|truncatewords:20|linebreaks }}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">
+                                View
+                                {% comment %} <a href="{% url 'library-detail' library.id %}">View</a> {% endcomment %}
+                                </button>
+                                
+                            </div>
+                            <small class="text-muted">9 mins</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %} {% include 'books/pagination.html' with page=page_obj %} {%endblock content%}

@@ -1,8 +1,8 @@
 from django.urls import path
 from . import views
-
+from .views import LibraryListView
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', LibraryListView.as_view(), name='index'),
 
 ]
