@@ -23,5 +23,6 @@ class LibraryListView(generic.ListView):
 
 def library_detail_view(request, pk):
     library = Library.objects.filter(id=pk)
-    context = {"library": library}
+    library_books = LibraryBook.objects.filter(library__pk=pk)
+    context = {"library": library, "library_books": library_books}
     return render(request, "libraries/library_detail.html", context)

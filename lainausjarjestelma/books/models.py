@@ -25,6 +25,8 @@ class Book(models.Model):
         size=[250, 250], default="default.jpg", upload_to="book_pics", blank=True, force_format='JPEG')
 
     # def save(self):
+    #     Image implementation is not finished. Uploading image is going to suffer from artifacting
+
     #     super(Book, self).save
     #     img = Image.open(self.thumbnail.path)
     #     if img.height > max_height or img.width > max_width:

@@ -4,16 +4,20 @@
         <h1>{{ lib.name }}</h1>
     </section>
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-    <div
-        class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden"
-    >
-        {% comment %} <img src="{{ library.thumbnail.url }}" alt="" /> {% endcomment %}
+        <div
+            class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden"
+        >
+            {% comment %} <img src="{{ library.thumbnail.url }}" alt="" /> {% endcomment %}
+        </div>
+        <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                <h4>{{ lib.description }}</h4>       
+            
+        </div>
     </div>
-    <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-            <h4>{{ lib.description }}</h4>       
-        
-    </div>
-    </div>
-    <h1>{{ library.libraryBook.amount }}</h1>
+{% endfor %}
+{% for book in library_books %}
+    
+    <h1>{{ book.book.book_title }}</h1>
+
 {% endfor %}
 {% endblock content %}
