@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'libraries.apps.LibrariesConfig',
     'users.apps.UsersConfig',
     'books.apps.BooksConfig',
     'crispy_forms',
