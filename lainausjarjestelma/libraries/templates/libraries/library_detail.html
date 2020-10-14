@@ -4,20 +4,58 @@
         <h1>{{ lib.name }}</h1>
     </section>
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-        <div
-            class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden"
-        >
+        <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
             {% comment %} <img src="{{ library.thumbnail.url }}" alt="" /> {% endcomment %}
         </div>
         <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-                <h4>{{ lib.description }}</h4>       
+                <h4>{{ lib.description }}</h4>   
+                
             
         </div>
+     
+    </div>
+
+        <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+               <h2>Kirjastossamme löytyy</h2>                 
+            
+        </div>     
     </div>
 {% endfor %}
-{% for book in library_books %}
+{% comment %} {% for book in library_books %}
     
     <h1>{{ book.book.book_title }}</h1>
 
-{% endfor %}
+{% endfor %} {% endcomment %}
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      {% for book in library_books %}
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <img src="{{ book.book.thumbnail.url }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ book.book.book_title }}</h5>
+            <p class="card-text">
+              {{ book.book.description|truncatewords:20|linebreaks }}
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  <a href="{% url 'book-detail' book.book.id %}">View</a>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Add to cart
+                </button>
+              </div>
+              <small class="text-muted">9 mins</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% include 'books/pagination.html' with page=page_obj %} 
+  </div>
+</div>
+
 {% endblock content %}
