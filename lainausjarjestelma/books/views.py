@@ -39,5 +39,5 @@ class BookDetailView(generic.DetailView):
             book = Book.objects.get(pk=primary_key)
         except Book.DoesNotExist:
             raise Http404('Book does not exist')
-        else:
-            return render(request, 'books/detail.html', context={'book': book})
+        # else:
+        #     return render(request, 'books/detail.html', context={'book': book})

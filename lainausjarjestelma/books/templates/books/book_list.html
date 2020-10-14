@@ -38,7 +38,8 @@
         </div>
       </div>
       {% endfor %}
+    {% include 'books/pagination.html' with page=page_obj %} 
     </div>
   </div>
 </div>
-{% include 'books/pagination.html' with page=page_obj %} {% endblock content%}
+{% endblock content%}
