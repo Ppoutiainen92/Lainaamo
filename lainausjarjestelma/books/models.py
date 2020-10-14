@@ -22,7 +22,7 @@ class Book(models.Model):
     rental_duration = models.IntegerField(blank=True, null=True)
     expire_date = models.DateTimeField(blank=True, null=True)
     thumbnail = ResizedImageField(
-        size=[250, 250], default="default.jpg", upload_to="book_pics", blank=True)
+        size=[250, 250], default="default.jpg", upload_to="book_pics", blank=True, force_format='JPEG')
 
     # def save(self):
     #     super(Book, self).save
