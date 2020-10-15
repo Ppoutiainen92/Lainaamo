@@ -1,26 +1,52 @@
 {% extends 'books/base.html' %} {% block content %}
+
 <section class="jumbotron text-center">
-  <h1>{{ object.book_title }} {{ object.author }}</h1>
+  <h1>{{ book.book_title }} {{ book.author }}</h1>
 </section>
+
 <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-  <div
-    class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden"
-  >
-    <img src="{{ object.thumbnail.url }}" alt="" />
+  <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+    <img src="{{ book.thumbnail.url }}" alt="" />
   </div>
+  <!-- Book information section -->
   <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <h4>Kieli:{{ object.language }}</h4>
-    <h4>Julkaistu:{{ object.publis_year }}</h4>
-    <h4>Tyyli:{{ object.genre }}</h4>
-    <h4>Julkaistu:{{ object.publis_year }}</h4>
-    <h4>Julkaija:{{ object.publisher }}</h4>
+    <h4>Kieli:{{ book.language }}</h4>
+    <h4>Julkaistu:{{ book.publis_year }}</h4>
+    <h4>Tyyli:{{ book.genre }}</h4>
+    <h4>Julkaistu:{{ book.publis_year }}</h4>
+    <h4>Julkaija:{{ book.publisher }}</h4>
     <button type="button" class="btn btn-sm btn-outline-secondary">
       Add to cart
     </button>
   </div>
+
+  <!-- Library availability section -->
+  <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <h2>Saatavilla</h2>
+    <table class="table">
+      <tr>
+        <th>Sijainti</th>
+        <th>Määrä</th>        
+      </tr>
+      {{ totalamount = 0 }}
+      {% for lib in library_books %}              
+        <tr>
+            <td>
+                {{ lib.library.name }}      
+            </td>                
+            <td>
+                {{ lib.amount }}  
+            </td>                
+        </tr>
+      {% endfor %}              
+    </table>
+  </div>    
 </div>
+<!-- Book description -->
 <div class="jumbotron text-center">
-  <h4>{{ object.description }}</h4>
-</div>
+  <h4>{{ book.description }}</h4>
+</div> 
+
+
 
 {% endblock %}

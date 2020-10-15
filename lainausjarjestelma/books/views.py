@@ -4,6 +4,8 @@ from books.models import Book
 from django.views import generic
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
+from libraries.models import LibraryBook
+import logging
 # Create your views here.
 
 
@@ -29,15 +31,23 @@ class BookListView(generic.ListView):
 #         return get_object_or_404(Book, id=id_)
 
 
-class BookDetailView(generic.DetailView):
-    model = Book
+def book_detail_view(request, pk):
+    book = Book.objects.filter(id=pk).first()
+    library_books = LibraryBook.objects.filter(book__pk=pk)
+    context = {"book": book, "library_books": library_books}
+    logging.warning(library_books)
+    return render(request, "books/book_detail.html", context)
+
+
+# class BookDetailView(generic.DetailView):
+    # model = Book
    #context_object_name = 'book_detail'
    #template_name = 'books/book_detail.html'
 
-    def book_detail_view(request, primary_key):
-        try:
-            book = Book.objects.get(pk=primary_key)
-        except Book.DoesNotExist:
-            raise Http404('Book does not exist')
-        # else:
-        #     return render(request, 'books/detail.html', context={'book': book})
+    # def book_detail_view(request, primary_key):
+    #     try:
+    #         book = Book.objects.get(pk=primary_key)
+    #     except Book.DoesNotExist:
+    #         raise Http404('Book does not exist')
+    # else:
+    #     return render(request, 'books/detail.html', context={'book': book})
