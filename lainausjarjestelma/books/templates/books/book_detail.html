@@ -15,31 +15,38 @@
     <h4>Tyyli:{{ book.genre }}</h4>
     <h4>Julkaistu:{{ book.publis_year }}</h4>
     <h4>Julkaija:{{ book.publisher }}</h4>
-    <button type="button" class="btn btn-sm btn-outline-secondary">
-      Add to cart
-    </button>
+    {% if total_amount %}
+      <button type="button" class="btn btn-sm btn-primary">
+        Add to cart
+      </button>    
+    {% else %}
+      <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+        Add to cart
+      </button>   
+    {% endif %}
   </div>
 
   <!-- Library availability section -->
   <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <h2>Saatavilla</h2>
     <table class="table">
       <tr>
         <th>Sijainti</th>
         <th>Määrä</th>        
+        
       </tr>
 
       {% for lib in library_books %}              
         <tr>
             <td>
-                {{ lib.library.name }}      
+              {{ lib.library.name }}      
             </td>                
             <td>
-                {{ lib.amount }}  
+              {{ lib.amount }}  
             </td>                
         </tr>
-      {% endfor %}              
+      {% endfor %}      
     </table>
+    <h2>Yhteensä saatavilla: {{ total_amount }}</h2>
   </div>    
 </div>
 <!-- Book description -->

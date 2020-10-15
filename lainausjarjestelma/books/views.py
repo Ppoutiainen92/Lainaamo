@@ -34,7 +34,12 @@ class BookListView(generic.ListView):
 def book_detail_view(request, pk):
     book = Book.objects.filter(id=pk).first()
     library_books = LibraryBook.objects.filter(book__pk=pk)
-    context = {"book": book, "library_books": library_books}
+    total_amount = 0
+    for lib in library_books:
+        total_amount += lib.amount
+
+    context = {"book": book, "library_books": library_books,
+               "total_amount": total_amount}
     logging.warning(library_books)
     return render(request, "books/book_detail.html", context)
 

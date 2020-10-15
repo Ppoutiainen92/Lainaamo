@@ -4,7 +4,7 @@ from django.utils import timezone
 from PIL import Image
 from django_resized import ResizedImageField
 
-# Create your models here.
+
 MAX_HEIGHT = 250
 MAX_WIDTH = 250
 
