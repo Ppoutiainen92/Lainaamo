@@ -34,10 +34,8 @@ class BookListView(generic.ListView):
 def book_detail_view(request, pk):
     book = Book.objects.filter(id=pk).first()
     library_books = LibraryBook.objects.filter(book__pk=pk)
-    total_amount = 0
-    for lib in library_books:
-        total_amount += lib.amount
-
+    # Sums all available books
+    total_amount = sum([lib.amount for lib in library_books])
     context = {"book": book, "library_books": library_books,
                "total_amount": total_amount}
     logging.warning(library_books)
