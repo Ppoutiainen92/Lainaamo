@@ -21,4 +21,4 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     library_book = models.ManyToManyField(
         LibraryBook)
-    is_Ordered = models.BooleanField(default=False)
+    is_ordered = models.BooleanField(default=False)

@@ -29,7 +29,7 @@ def profile(request):
         if p_form.is_valid():
             p_form.save()
             messages.success(request, "Käyttäjä tietosi on päivitetty")
-            return redirect("home")
+            return redirect("book-list")
     else:
         p_form = ProfileUpdateForm(instance=request.user.profile)
 

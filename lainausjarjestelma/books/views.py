@@ -6,6 +6,9 @@ from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from libraries.models import LibraryBook
 import logging
+from django.shortcuts import redirect
+from django.contrib import messages
+from cart.models import Order, OrderBook
 # Create your views here.
 
 
@@ -32,14 +35,30 @@ class BookListView(generic.ListView):
 
 
 def book_detail_view(request, pk):
-    book = Book.objects.filter(id=pk).first()
-    library_books = LibraryBook.objects.filter(book__pk=pk)
-    # Sums all available books
-    total_amount = sum([lib.amount for lib in library_books])
-    context = {"book": book, "library_books": library_books,
-               "total_amount": total_amount}
-    logging.warning(library_books)
-    return render(request, "books/book_detail.html", context)
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            user = request.user
+            user_order = Order.objects.filter(user__pk=user.id).first()
+            req_lib_book = request.POST.get("select")
+            lib_book = LibraryBook.objects.filter(
+                library__name=req_lib_book, book__pk=pk).first()
+            instance = OrderBook.objects.create(library_book=lib_book)
+
+            logging.warning(lib_book.book.book_title)
+            logging.warning(lib_book.library.name)
+            return HttpResponse("<h1>Added to cart</h1>")
+        else:
+            messages.warning(
+                request, f"Kirjaudu sisään ennen kuin lisäät kirjoja.")
+            return redirect("login")
+    else:
+        book = Book.objects.filter(id=pk).first()
+        library_books = LibraryBook.objects.filter(book__pk=pk)
+        # Sums all available books
+        total_amount = sum([lib.amount for lib in library_books])
+        context = {"book": book, "library_books": library_books,
+                   "total_amount": total_amount}
+        return render(request, "books/book_detail.html", context)
 
 
 # class BookDetailView(generic.DetailView):
