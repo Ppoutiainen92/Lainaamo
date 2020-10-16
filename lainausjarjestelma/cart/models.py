@@ -2,13 +2,23 @@ from django.db import models
 from django.contrib.auth.models import User
 from books.models import Book
 from libraries.models import LibraryBook
+import datetime
+from django.utils import timezone
 
 
-# class OrderBook(models.Model):
-#     library_book = models.OneToOneField(LibraryBook, on_delete=SET_NULL, null=True)
-#     ordered = models.BooleanField(default=False)
+class OrderBook(models.Model):
+    library_book = models.OneToOneField(
+        LibraryBook, on_delete=models.SET_NULL, null=True)
+    ordered = models.BooleanField(default=False)
+    date_added = models.DateField(auto_now_add=True, blank=True)
+    expire_date = models.DateField(blank=True, null=True)
 
-# class Order(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-#     library_book = models.ManyToManyField(
-#         LibraryBook, on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return self.library_book.book.book_title
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    library_book = models.ManyToManyField(
+        LibraryBook)
+    is_Ordered = models.BooleanField(default=False)
