@@ -17,15 +17,18 @@
     <h4>Julkaija:{{ book.publisher }}</h4>
     <!-- Add to cart button if book is available -->
     {% if total_amount %}
-      <button type="button" class="btn btn-sm btn-primary">
-        Add to cart
-      </button>    
       <div class="form-group">
         <select class="form-control">
         {% for lib in library_books %}
-          <option>{{ lib.library.name }}</option>        
+          {% if lib.amount %}
+            <option>{{ lib.library.name }}</option>        
+          
+          {% endif %}
         {% endfor %}
         </select>
+      <button type="button" class="btn btn-sm btn-primary">
+        Add to cart
+      </button>    
       </div>
     {% else %}
       <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
