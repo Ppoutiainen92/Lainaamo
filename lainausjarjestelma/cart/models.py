@@ -12,13 +12,15 @@ class OrderBook(models.Model):
     ordered = models.BooleanField(default=False)
     date_added = models.DateField(auto_now_add=True, blank=True)
     expire_date = models.DateField(blank=True, null=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, default=None, null=True)
 
     def __str__(self):
-        return self.library_book.book.book_title
+        return self.library_book.book.book_title + " " + self.library_book.library.name
 
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     library_book = models.ManyToManyField(
-        LibraryBook)
+        OrderBook, blank=True)
     is_ordered = models.BooleanField(default=False)

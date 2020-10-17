@@ -42,11 +42,15 @@ def book_detail_view(request, pk):
             req_lib_book = request.POST.get("select")
             lib_book = LibraryBook.objects.filter(
                 library__name=req_lib_book, book__pk=pk).first()
-            instance = OrderBook.objects.create(library_book=lib_book)
-
-            logging.warning(lib_book.book.book_title)
-            logging.warning(lib_book.library.name)
-            return HttpResponse("<h1>Added to cart</h1>")
+            if not OrderBook.objects.filter(library_book=lib_book).exists():
+                instance = OrderBook.objects.create(
+                    library_book=lib_book, user=user)
+                user_order.library_book.add(instance)
+                logging.warning(lib_book.book.book_title)
+                logging.warning(lib_book.library.name)
+            else:
+                logging.warning("Already exists")
+            return redirect("book-list")
         else:
             messages.warning(
                 request, f"Kirjaudu sisään ennen kuin lisäät kirjoja.")
