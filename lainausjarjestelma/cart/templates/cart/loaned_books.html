@@ -1,11 +1,14 @@
 {% extends 'books/base.html' %} {% block content %}
 <h1>Lainassa olevat kirjat</h1>
-{% for book in books %}
-    <li class="list-group-item"> {{ book.library_book }} 
-        <p class="{% if book.is_expired %}alert alert-danger {% else %}alert alert-primary{% endif %}">
-        Palautuspäivä: {{ book.expire_date }}</p>
-        <button type="submit" class="btn btn-sm btn-primary" value=" {{book.id}} " name="return_book">Palauta</button>
-    </li>
-{% endfor %}
+<form method="POST">
+    {% csrf_token %}
+    {% for book in books %}
+        <li class="list-group-item"> {{ book.library_book }} 
+            <p class="{% if book.is_expired %}alert alert-danger {% else %}alert alert-primary{% endif %}">
+            Palautuspäivä: {{ book.expire_date }}</p>
+            <button type="submit" class="btn btn-sm btn-primary" value="{{ book.id }}" name="delete">Palauta</button>
+        </li>
+    {% endfor %}
+</form>
 
 {% endblock %}

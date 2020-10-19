@@ -52,19 +52,28 @@ def loaned_books(request):
     user = request.user
     loaned_books = LoanedBook.objects.filter(user=user).first()
     books = loaned_books.library_book.all()
-    tz = timezone.now()
-    time_now = datetime.date(tz.year, tz.month, tz.day)
-    for book in books:
-        exp = book.expire_date
-        if book.expire_date > time_now:
-            logging.warning("aikaa jäljellä")
-            book.is_expired = False
-            book.save()
+    if request.method == "POST":
+        selected_book_id = request.POST.get("delete")
+        logging.warning(selected_book_id)
+        book = loaned_books.library_book.filter(id=selected_book_id).first()
 
-        else:
-            logging.warning("myöhässä")
-            book.is_expired = True
-            book.save()
+        book.delete()
+        return redirect("loaned_books")
 
-    context = {"loaned_books": loaned_books, "books": books}
-    return render(request, "cart/loaned_books.html", context)
+    else:
+        tz = timezone.now()
+        time_now = datetime.date(tz.year, tz.month, tz.day)
+        for book in books:
+            exp = book.expire_date
+            if book.expire_date > time_now:
+                logging.warning("aikaa jäljellä")
+                book.is_expired = False
+                book.save()
+
+            else:
+                logging.warning("myöhässä")
+                book.is_expired = True
+                book.save()
+
+        context = {"loaned_books": loaned_books, "books": books}
+        return render(request, "cart/loaned_books.html", context)

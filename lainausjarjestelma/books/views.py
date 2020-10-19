@@ -53,7 +53,7 @@ def book_detail_view(request, pk):
                 logging.warning(lib_book.library.name)
             else:
                 messages.warning(
-                    request, "Sinulla on jo lainassa kyseinen kirja")
+                    request, "Sinulla on jo ostoskorissa tai lainassa kyseinen kirja")
             return redirect("book-list")
         else:
             messages.warning(
