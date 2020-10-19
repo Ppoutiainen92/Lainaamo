@@ -22,6 +22,7 @@ class OrderBook(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    # Give better name for this
     library_book = models.ManyToManyField(
         OrderBook, blank=True)
     is_ordered = models.BooleanField(default=False)

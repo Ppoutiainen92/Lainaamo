@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Order, OrderBook
 from cart.models import LoanedBook
+from libraries.models import LibraryBook
 import logging
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -24,10 +25,11 @@ def cart(request):
             # Remove books from the cart and add them to loaned books
             for book in ordered_books:
                 book.ordered = True
-                book.library_book.amount -= 1
+                change_library_book_amount(-1, book.library_book.id)
                 book.expire_date = timezone.now() + timezone.timedelta(days=30)
                 loaned_books.library_book.add(book)
                 user_order.library_book.remove(book)
+
                 book.save()
 
             return redirect("cart")
@@ -53,18 +55,25 @@ def loaned_books(request):
     user = request.user
     loaned_books = LoanedBook.objects.filter(user=user).first()
     books = loaned_books.library_book.all()
+    # Returns book to library and update it's availability
     if request.method == "POST":
         selected_book_id = request.POST.get("delete")
-        logging.warning(selected_book_id)
         book = loaned_books.library_book.filter(id=selected_book_id).first()
-        book.library_book.amount += 1
+
+        # Update librarybook amounts
+        # Find right book from LibraryBook table
+        # lib_book = LibraryBook.objects.filter(id=book.library_book.id).first()
+
+        change_library_book_amount(1, book.library_book.id)
         book.save()
         book.delete()
         return redirect("loaned_books")
 
     else:
+        # GET request for loaned books
         tz = timezone.now()
         time_now = datetime.date(tz.year, tz.month, tz.day)
+        # If book is expired change it's bool state
         for book in books:
             exp = book.expire_date
             if book.expire_date > time_now:
@@ -79,3 +88,9 @@ def loaned_books(request):
 
         context = {"loaned_books": loaned_books, "books": books}
         return render(request, "cart/loaned_books.html", context)
+
+
+def change_library_book_amount(amount, book_id):
+    lib_book = LibraryBook.objects.filter(id=book_id).first()
+    lib_book.amount += amount
+    lib_book.save()
