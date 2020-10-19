@@ -36,13 +36,16 @@ class BookListView(generic.ListView):
 
 def book_detail_view(request, pk):
     if request.method == "POST":
+        """Add to cart logic in book_detail"""
         if request.user.is_authenticated:
             user = request.user
             user_order = Order.objects.filter(user__pk=user.id).first()
+            # Getting right library_book from the query
             req_lib_book = request.POST.get("select")
             lib_book = LibraryBook.objects.filter(
                 library__name=req_lib_book, book__pk=pk).first()
             if not OrderBook.objects.filter(library_book=lib_book).exists():
+                # Creating new order_book object and add it to users order
                 instance = OrderBook.objects.create(
                     library_book=lib_book, user=user)
                 user_order.library_book.add(instance)
