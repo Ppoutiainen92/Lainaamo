@@ -24,6 +24,7 @@ def cart(request):
             # Remove books from the cart and add them to loaned books
             for book in ordered_books:
                 book.ordered = True
+                book.library_book.amount -= 1
                 book.expire_date = timezone.now() + timezone.timedelta(days=30)
                 loaned_books.library_book.add(book)
                 user_order.library_book.remove(book)
@@ -56,7 +57,8 @@ def loaned_books(request):
         selected_book_id = request.POST.get("delete")
         logging.warning(selected_book_id)
         book = loaned_books.library_book.filter(id=selected_book_id).first()
-
+        book.library_book.amount += 1
+        book.save()
         book.delete()
         return redirect("loaned_books")
 

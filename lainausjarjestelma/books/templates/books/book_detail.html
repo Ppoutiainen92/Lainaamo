@@ -50,14 +50,16 @@
       </tr>
 
       {% for lib in library_books %}              
+        {% if lib.amount %}
         <tr>
             <td>
               {{ lib.library.name }}      
             </td>                
             <td>
-              {{ lib.amount }}  
+                {{ lib.amount }}  
             </td>                
         </tr>
+        {% endif %}
       {% endfor %}      
     </table>
     <h2>Yhteensä saatavilla: {{ total_amount }}</h2>
