@@ -52,7 +52,8 @@ def book_detail_view(request, pk):
                 logging.warning(lib_book.book.book_title)
                 logging.warning(lib_book.library.name)
             else:
-                logging.warning("Already exists")
+                messages.warning(
+                    request, "Sinulla on jo lainassa kyseinen kirja")
             return redirect("book-list")
         else:
             messages.warning(

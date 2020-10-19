@@ -20,7 +20,7 @@ class OrderBook(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     library_book = models.ManyToManyField(
         OrderBook, blank=True)
     is_ordered = models.BooleanField(default=False)
@@ -30,9 +30,9 @@ class Order(models.Model):
 
 
 class LoanedBook(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     library_book = models.ManyToManyField(
         OrderBook, blank=True)
 
     def __str__(self):
-        return self.user.username + " Order"
+        return self.user.username + " Loans"
