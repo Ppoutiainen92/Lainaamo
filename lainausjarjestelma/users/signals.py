@@ -3,7 +3,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import Profile
-from cart.models import Order
+from cart.models import Order, LoanedBook
 
 
 @receiver(post_save, sender=User)
@@ -12,6 +12,7 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
         Order.objects.create(user=instance)
+        LoanedBook.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)

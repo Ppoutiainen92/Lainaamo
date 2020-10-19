@@ -1,4 +1,13 @@
 {% extends 'books/base.html' %} {% block content %}
-<h1>Hello</h1>
-
+<h1></h1>
+<form method="POST">
+    {% csrf_token %}
+    <ul class="list-group" ></ul>
+    {% for order_book in order_books %}
+        <li class="list-group-item">{{ order_book.library_book }}
+            <button type="submit" class="btn btn-sm btn-danger" value="{{ order_book.id }}" name="delete">Delete</button>
+        </li>
+    {% endfor %}
+<button type="submit" value="buy" class="btn btn-lg btn-primary" name="buy">Osta</button>
+</form>
 {% endblock content %}

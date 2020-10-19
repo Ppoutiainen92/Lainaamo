@@ -24,3 +24,15 @@ class Order(models.Model):
     library_book = models.ManyToManyField(
         OrderBook, blank=True)
     is_ordered = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username + " Order" + str(self.id)
+
+
+class LoanedBook(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    library_book = models.ManyToManyField(
+        OrderBook, blank=True)
+
+    def __str__(self):
+        return self.user.username + " Order"
