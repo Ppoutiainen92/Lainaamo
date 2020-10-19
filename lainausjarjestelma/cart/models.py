@@ -12,6 +12,7 @@ class OrderBook(models.Model):
     ordered = models.BooleanField(default=False)
     date_added = models.DateField(auto_now_add=True, blank=True)
     expire_date = models.DateField(blank=True, null=True)
+    is_expired = models.BooleanField(default=False)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, default=None, null=True)
 
