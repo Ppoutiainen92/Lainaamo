@@ -24,8 +24,10 @@
               {{ book.description|truncatewords:20|linebreaks }}
             </p>
             <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">                            
-                <a class="btn btn-sm btn-outline-secondary" href="{% url 'book-detail' book.id %}"></a>              
+              <div class="btn-group">
+               
+                  <a class="btn btn-sm btn-outline-secondary" href="{% url 'book-detail' book.id %}">Katso</a>
+                
               </div>
               <small class="text-muted">{{ book.author }}</small>
             </div>

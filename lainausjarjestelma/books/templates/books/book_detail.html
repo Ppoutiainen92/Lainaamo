@@ -4,18 +4,19 @@
   <h1>{{ book.book_title }} {{ book.author }}</h1>
 </section>
 
-<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 bg-light">
   <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
     <img src="{{ book.thumbnail.url }}" alt="" />
   </div>
   <!-- Book information section -->
   <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <h4>Kieli:{{ book.language }}</h4>
-    <h4>Julkaistu:{{ book.publis_year }}</h4>
-    <h4>Tyyli:{{ book.genre }}</h4>
-    <h4>Julkaistu:{{ book.publis_year }}</h4>
-    <h4>Julkaija:{{ book.publisher }}</h4>
+    <h4 class="book-detail">Kieli:{{ book.language }}</h4>
+    <h4 class="book-detail">Julkaistu:{{ book.publis_year }}</h4>
+    <h4 class="book-detail">Tyyli:{{ book.genre }}</h4>
+    
+    <h4 class="book-detail">Julkaija:{{ book.publisher }}</h4>
     <!-- Add to cart button if book is available -->
+    <hr>
     <form action="" method="POST">
       {% csrf_token %}
       {% if total_amount %}
@@ -28,14 +29,15 @@
             {% endif %}
           {% endfor %}
           </select>
+          <hr>
         <button type="submit" class="btn btn-sm btn-primary">
-          Add to cart
+          Lisää koriin
         </button>    
         </div>       
     </form>
     {% else %}
       <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
-        Add to cart
+        Lisää koriin
       </button>   
     {% endif %}
   </div>
@@ -62,7 +64,9 @@
         {% endif %}
       {% endfor %}      
     </table>
+    <hr>
     <h2>Yhteensä saatavilla: {{ total_amount }}</h2>
+    <hr>
   </div>    
 </div>
 <!-- Book description -->

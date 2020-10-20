@@ -1,0 +1,43 @@
+body {
+    background: #E9ECEF;
+}
+
+.blog-footer{
+    text-align: center;
+}
+
+.full{
+    height: 100%;
+}
+
+html{
+    height: 100%;
+}
+
+.content{
+    min-height: calc(100vh - 70px);
+}
+
+.footer{
+  height: 7%; 
+  bottom: 0px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  text-align: center;
+  background: #343A40;
+}
+
+.navbar-brand{
+    padding-left: 2em;
+    
+
+}
+
+.nav-item{
+    padding-right: 1em;
+}
+
+.book-detail{
+    text-align: left;
+}
