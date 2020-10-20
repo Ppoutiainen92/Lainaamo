@@ -1,13 +1,32 @@
 {% extends 'books/base.html' %} {% block content %}
-<h1></h1>
+
+<section class="jumbotron text-center">
+  <h1>Korisi</h1>
+  <hr>
+</section>
 <form method="POST">
-    {% csrf_token %}
-    <ul class="list-group" ></ul>
-    {% for order_book in order_books %}
-        <li class="list-group-item">{{ order_book.library_book }}
-            <button type="submit" class="btn btn-sm btn-danger" value="{{ order_book.id }}" name="delete">Delete</button>
-        </li>
-    {% endfor %}
-<button type="submit" value="buy" class="btn btn-lg btn-primary" name="buy">Osta</button>
+    <div class="container bg-dark cart">
+        {% csrf_token %}
+        <ul class="list-group" ></ul>
+        {% for order_book in order_books %}
+            <li class="list-group-item bg-white cart-item">{{ order_book.library_book }}
+                <button type="submit" class="btn btn-sm btn-danger" value="{{ order_book.id }}" name="delete">Poista</button>
+            </li>
+        {% endfor %}
+        {% if order_books %}
+            <button type="submit" value="buy" class="btn btn-lg btn-primary" name="buy">Osta</button>
+        {% else %}
+            <li class="list-group-item bg-white cart-item"> 
+                <h2 class="cart-text">Sinulla ei ole tuotteita ostoskorissasi</h2>
+                <p class="cart-text">
+                    <a class="btn btn-primary btn-sm" href="{% url 'search' %}">Etsi kirjoja</a>                    
+                </p>
+                <p class="cart-text">
+                    <a class="btn btn-primary btn-sm" href="{% url 'loaned_books' %}">Lainatut teokset</a>
+                </p>
+            </li>
+            <hr>
+        {% endif %}
+    </div>
 </form>
 {% endblock content %}

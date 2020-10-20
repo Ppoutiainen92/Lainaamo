@@ -1,25 +1,29 @@
 <nav aria-label="Page navigation example">
+  {% if page %}
   <ul class="pagination">
     <li class="page-item">
       {% if page.has_previous %}
       <a class="page-link" href="?page={{page.previous_page_number}}"
-        >Previous</a
+        >Edellinen</a
       >
 
       {% endif %}
     </li>
 
     <li class="page-item">
-      <a class="page-link"
-        >Page {{page.number}} of {{page.paginator.num_pages}}</a
-      >
+      {% if paginator.num_pages %}
+        <p class="page-link bg-light"
+          >Sivu{{page.number}}</p
+        >
+      {% endif %}
     </li>
 
     <li class="page-item">
       {% if page.has_next %}
-      <a class="page-link" href="?page={{page.next_page_number}}">Next</a>
+      <a class="page-link" href="?page={{page.next_page_number}}">Seuraava</a>
 
       {% endif %}
     </li>
   </ul>
+  {% endif %}
 </nav>
