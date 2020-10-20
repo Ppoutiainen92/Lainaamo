@@ -1,12 +1,20 @@
 {% extends 'books/base.html' %} {% block content %}
-<h1></h1>
 
-<h1 class="jumbotron text-center">Selaa kirjojamme</h1>
+<div class="container">
+    <form method="GET">
+        <hr>
+        <div class="form-group">
+            <input class="form-control" type="search" name="title_or_author" placeholder="Etsi kirjan nimellä tai tekijällä">
+        </div>
+        <button type="submit" class="btn btn-primary">Etsi</button>
+        <hr>
+    </form>
+</div>
 
 <div class="album py-5 bg-light">
   <div class="container">
     <div class="row">
-      {% for book in books %}
+      {% for book in query_set %}
       <div class="col-md-4">
         <div class="card mb-4 box-shadow">
           <img src="{{ book.thumbnail.url }}" />
@@ -16,10 +24,8 @@
               {{ book.description|truncatewords:20|linebreaks }}
             </p>
             <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-               
-                  <a class="btn btn-sm btn-outline-secondary" href="{% url 'book-detail' book.id %}">View</a>
-                
+              <div class="btn-group">                            
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'book-detail' book.id %}"></a>              
               </div>
               <small class="text-muted">{{ book.author }}</small>
             </div>
@@ -31,4 +37,6 @@
     </div>
   </div>
 </div>
-{% endblock content%}
+
+
+{% endblock content %}

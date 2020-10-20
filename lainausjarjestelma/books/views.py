@@ -9,6 +9,7 @@ import logging
 from django.shortcuts import redirect
 from django.contrib import messages
 from cart.models import Order, OrderBook
+from django.db.models import Q
 # Create your views here.
 
 
@@ -69,10 +70,33 @@ def book_detail_view(request, pk):
         return render(request, "books/book_detail.html", context)
 
 
-# class BookDetailView(generic.DetailView):
+def validQuery(query):
+    return query != None and query is not ""
+
+
+def filtering(request):
+    query_set = Book.objects.all()
+    search_query = request.GET.get("title_or_author")
+    if validQuery(search_query):
+        query_set = query_set.filter(Q(book_title__icontains=search_query) |
+                                     Q(author__icontains=search_query)).distinct()
+    return query_set
+
+
+def search(request):
+    query_set = filtering(request)
+    title_or_author = request.GET.get("title_or_author")
+
+    context = {
+        "query_set": query_set,
+        "title_or_author": title_or_author
+    }
+    return render(request, "books/search.html", context)
+
+    # class BookDetailView(generic.DetailView):
     # model = Book
-   #context_object_name = 'book_detail'
-   #template_name = 'books/book_detail.html'
+   # context_object_name = 'book_detail'
+   # template_name = 'books/book_detail.html'
 
     # def book_detail_view(request, primary_key):
     #     try:
