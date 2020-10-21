@@ -9,6 +9,7 @@ MAX_WIDTH = 300
 
 
 class Book(models.Model):
+    # Book model which contains basic information about it
     book_title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=100)
@@ -22,7 +23,7 @@ class Book(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         img = Image.open(self.thumbnail.path)
-        if img.height > 300 or img.width > 300:
+        if img.height > MAX_HEIGHT or img.width > MAX_WIDTH:
             output_size = (MAX_HEIGHT, MAX_WIDTH)
             img.thumbnail(output_size)
             img.save(self.thumbnail.path)

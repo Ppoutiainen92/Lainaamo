@@ -6,6 +6,7 @@
             {% for library in libraries%}
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
+                        <img src="{{ library.thumbnail.url }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ library.name }}</h5>
                             <p class="card-text">
