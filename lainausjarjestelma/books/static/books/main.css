@@ -2,15 +2,23 @@ body {
     background: #E9ECEF;
 }
 
+html{
+    height: 100%;
+}
+
+h1,h2,h3,h4{
+    font-family: 'Open Sans', sans-serif;
+}
+
+a, p{
+    font-family: 'Libre Baskerville', serif;
+}
+
 .blog-footer{
     text-align: center;
 }
 
 .full{
-    height: 100%;
-}
-
-html{
     height: 100%;
 }
 

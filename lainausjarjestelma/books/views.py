@@ -10,7 +10,6 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from cart.models import Order, OrderBook
 from django.db.models import Q
-# Create your views here.
 
 
 class BookListView(generic.ListView):
@@ -79,7 +78,9 @@ def filtering(request):
     search_query = request.GET.get("title_or_author")
     if validQuery(search_query):
         query_set = query_set.filter(Q(book_title__icontains=search_query) |
-                                     Q(author__icontains=search_query)).distinct()
+                                     Q(author__icontains=search_query) | Q(genre__icontains=search_query)).distinct()
+    else:
+        query_set = None
     return query_set
 
 
