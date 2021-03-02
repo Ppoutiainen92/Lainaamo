@@ -1,0 +1,76 @@
+body {
+    background: #E9ECEF;
+}
+
+html{
+    height: 100%;
+}
+
+h1,h2,h3,h4{
+    font-family: 'Open Sans', sans-serif;
+}
+
+a, p{
+    font-family: 'Libre Baskerville', serif;
+}
+
+.blog-footer{
+    text-align: center;
+}
+
+.full{
+    height: 100%;
+}
+
+.content{
+    min-height: calc(100vh - 70px);
+}
+
+.footer{
+  height: 7%; 
+  bottom: 0px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  text-align: center;
+  background: #343A40;
+}
+
+.navbar-brand{
+    padding-left: 2em;
+    
+
+}
+
+.nav-item{
+    padding-right: 1em;
+}
+
+.book-detail{
+    text-align: left;
+}
+
+.cart-text{
+    text-align: center;
+    margin-bottom: 5%;
+
+    width: 100%;
+    white-space: normal;
+    word-break: break-all;
+}
+
+.cart-item{
+    margin-top: 5%;
+    border-radius: 10px;
+    margin-bottom: 4%;
+}
+
+.cart{
+    padding-top: 0.1%;
+    padding-bottom: 0.1%;
+}
+
+.container{
+    border-radius: 10px;
+}
+

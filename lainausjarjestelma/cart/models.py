@@ -7,8 +7,8 @@ from django.utils import timezone
 
 
 class OrderBook(models.Model):
-    library_book = models.OneToOneField(
-        LibraryBook, on_delete=models.SET_NULL, null=True)
+    library_book = models.ForeignKey(
+        LibraryBook, on_delete=models.CASCADE, null=True)
     ordered = models.BooleanField(default=False)
     date_added = models.DateField(auto_now_add=True, blank=True)
     expire_date = models.DateField(blank=True, null=True)

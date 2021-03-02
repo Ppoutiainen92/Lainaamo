@@ -63,8 +63,8 @@ def loaned_books(request):
         # Update librarybook amounts
         # Find right book from LibraryBook table
         # lib_book = LibraryBook.objects.filter(id=book.library_book.id).first()
-
-        change_library_book_amount(1, book.library_book.id)
+        if book.library_book:
+            change_library_book_amount(1, book.library_book.id)
         book.save()
         book.delete()
         return redirect("loaned_books")

@@ -44,7 +44,7 @@ def book_detail_view(request, pk):
             req_lib_book = request.POST.get("select")
             lib_book = LibraryBook.objects.filter(
                 library__name=req_lib_book, book__pk=pk).first()
-            if not OrderBook.objects.filter(library_book=lib_book).exists():
+            if not OrderBook.objects.filter(library_book=lib_book, user=user).exists():
                 # Creating new order_book object and add it to users order
                 instance = OrderBook.objects.create(
                     library_book=lib_book, user=user)
